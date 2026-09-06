@@ -1,113 +1,37 @@
 import Column from './Column'
+import { cardlist } from '../data'
+import Loader from './Loader'
 
-const Main = () => {
-    const columns = [
-    {
-        title: 'Без статуса',
-        cards: [
-        {
-            title: 'Название задачи',
-            category: 'Web Design',
-            color: 'orange',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Research',
-            color: 'green',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Web Design',
-            color: 'orange',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Copywriting',
-            color: 'purple',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Web Design',
-            color: 'orange',
-            date: '30.10.23',
-        },
-        ],
-    },
-    {
-        title: 'Нужно сделать',
-        cards: [
-        {
-            title: 'Название задачи',
-            category: 'Research',
-            color: 'green',
-            date: '30.10.23',
-        },
-        ],
-    },
-    {
-        title: 'В работе',
-        cards: [
-        {
-            title: 'Название задачи',
-            category: 'Research',
-            color: 'green',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Copywriting',
-            color: 'purple',
-            date: '30.10.23',
-        },
-        {
-            title: 'Название задачи',
-            category: 'Web Design',
-            color: 'orange',
-            date: '30.10.23',
-        },
-        ],
-    },
-    {
-        title: 'Тестирование',
-        cards: [
-        {
-            title: 'Название задачи',
-            category: 'Research',
-            color: 'green',
-            date: '30.10.23',
-        },
-        ],
-    },
-    {
-        title: 'Готово',
-        cards: [
-        {
-            title: 'Название задачи',
-            category: 'Research',
-            color: 'green',
-            date: '30.10.23',
-        },
-        ],
-    },
-    ]
+const Main = ({ loading }) => {
+    const columns = {}
+    for (const card of cardlist) {
+        if (!columns[card.status]) {
+            columns[card.status] = {
+                title: card.status,
+                cards: []
+            }
+            columns[card.status].cards.push(card)
+        } else {
+            columns[card.status].cards.push(card)
+        }
+    }
+    console.log(columns)
 
     return (
-        <main className="main">
+    <main className="main">
+      { loading ? <Loader /> : (
       <div className="container">
         <div className="main__content">
-          {columns.map((column) => (
+          {Object.values(columns).map((column, index) => (
             <Column
-              key={column.title}
+              key={index}
               title={column.title}
               cards={column.cards}
             />
           ))}
         </div>
-      </div>
+      </div>)
+      }
     </main>
     )
 }

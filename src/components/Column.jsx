@@ -8,8 +8,8 @@ const Column = ({ title, cards }) => {
       </div>
 
       <div className="cards">
-        {cards.map((card, index) => (
-          <Card key={card.title + index} {...card} />
+        {cards.map((card) => (
+          <Card key={card.id} {...card} />
         ))}
       </div>
     </section>
