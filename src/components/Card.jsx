@@ -1,10 +1,15 @@
-const Card = ({ title, category, color, date }) => {
+const Card = ({ theme, title, color, date}) => {
+    const colours = {
+        'Research': 'green',
+        'Web Design': 'orange',
+        'Copywriting': 'purple'
+      }
     return (
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <div className={`card__theme _${color}`}>
-            <p className={`_${color}`}>{category}</p>
+          <div className={`card__theme _${colours[theme]}`}>
+            <p className={`_${color}`}>{theme}</p>
           </div>
             <a href="#popBrowse" target="_self">
                 <div className="card__btn">
