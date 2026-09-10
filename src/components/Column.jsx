@@ -1,18 +1,19 @@
 import Card from './Card'
+import { ColumnS, ColumnTitle, Cards } from '../styled-components/Column.styled'
 
 const Column = ({ title, cards }) => {
     return (
-    <section className="main__column column">
-      <div className="column__title">
+    <ColumnS>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
+      </ColumnTitle>
 
-      <div className="cards">
+      <Cards>
         {cards.map((card) => (
           <Card key={card.id} {...card} />
         ))}
-      </div>
-    </section>
+      </Cards>
+    </ColumnS>
     )
 }
 

@@ -1,6 +1,7 @@
 import Column from './Column'
 import { cardlist } from '../data'
 import Loader from './Loader'
+import { MainS, Container, MainContent } from "../styled-components/Main.styled";
 
 const Main = ({ loading }) => {
     const columns = {}
@@ -18,10 +19,10 @@ const Main = ({ loading }) => {
     console.log(columns)
 
     return (
-    <main className="main">
+    <MainS>
       { loading ? <Loader /> : (
-      <div className="container">
-        <div className="main__content">
+      <Container>
+        <MainContent>
           {Object.values(columns).map((column, index) => (
             <Column
               key={index}
@@ -29,10 +30,10 @@ const Main = ({ loading }) => {
               cards={column.cards}
             />
           ))}
-        </div>
-      </div>)
+        </MainContent>
+      </Container>)
       }
-    </main>
+    </MainS>
     )
 }
 
