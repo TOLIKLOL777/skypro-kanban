@@ -1,5 +1,7 @@
+import SignForm from "../SignForm/SignForm";
+
 const LoginPage = ({ setIsAuth }) => {
-  return <Login setIsAuth={setIsAuth}></Login>;
+  return <SignForm isAuth={true} setIsAuth={setIsAuth} />;
 };
 
 export default LoginPage;

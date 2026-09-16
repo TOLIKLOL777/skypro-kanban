@@ -31,8 +31,8 @@ function AppRoutes() {
           <Route path="/create" element={<PopNewCardPage />} />
         </Route>
       </Route>
-      <Route path="/login" element={<LoginPage />}></Route>
-      <Route path="/login" element={<RegisterPage />}></Route>
+      <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} />} />
+      <Route path="/register" element={<RegisterPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

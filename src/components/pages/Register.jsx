@@ -1,5 +1,7 @@
+import SignForm from "../SignForm/SignForm";
+
 const RegisterPage = () => {
-  return <Register></Register>;
+  return <SignForm isAuth={false} />;
 };
 
 export default RegisterPage;
