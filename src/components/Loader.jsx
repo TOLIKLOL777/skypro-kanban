@@ -1,6 +1,8 @@
+import { LoaderS } from "../styled-components/Loader.styled";
+
 const Loader = () => {
   return (
-    <div className='loader'>Данные загружаются...</div>
+    <LoaderS>Данные загружаются...</LoaderS>
   )
 }
 
