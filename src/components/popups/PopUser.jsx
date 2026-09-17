@@ -1,23 +1,26 @@
+import { Link } from "react-router-dom";
 import {
   PopUser as PopUserBlock,
   PopUserName,
   PopUserMail,
   PopUserTheme,
   PopUserButton,
-} from "../../styled-components/Popups.styled";
+} from "./Popups.styled";
 
 const PopUser = () => {
   return (
     <PopUserBlock id="user-set-target">
-        <PopUserName>Ivan Ivanov</PopUserName>
-        <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
-        <PopUserTheme>
-            <p>Темная тема</p>
-            <input type="checkbox" name="checkbox"/>
-        </PopUserTheme>
-        <PopUserButton type="button"><a href="#popExit">Выйти</a></PopUserButton>
+      <PopUserName>Ivan Ivanov</PopUserName>
+      <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+      <PopUserTheme>
+        <p>Темная тема</p>
+        <input type="checkbox" name="checkbox" />
+      </PopUserTheme>
+      <PopUserButton type="button">
+        <Link to={`/exit`}>Выйти</Link>
+      </PopUserButton>
     </PopUserBlock>
-  )
-}
+  );
+};
 
-export default PopUser
+export default PopUser;

@@ -1,8 +1,8 @@
-import Card from './Card'
-import { ColumnS, ColumnTitle, Cards } from '../styled-components/Column.styled'
+import Card from "../Card/Card";
+import { ColumnS, ColumnTitle, Cards } from "./Column.styled";
 
 const Column = ({ title, cards }) => {
-    return (
+  return (
     <ColumnS>
       <ColumnTitle>
         <p>{title}</p>
@@ -14,7 +14,7 @@ const Column = ({ title, cards }) => {
         ))}
       </Cards>
     </ColumnS>
-    )
-}
+  );
+};
 
 export default Column;

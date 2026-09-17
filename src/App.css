@@ -1,75 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 *:before,
 *:after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a,
 a:visited {
-    text-decoration: none;
-    cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 button,
 ._btn {
-    cursor: pointer;
-    outline: none;
+  cursor: pointer;
+  outline: none;
 }
 
 ul li {
-    list-style: none;
+  list-style: none;
 }
 
 @keyframes card-animation {
-    0% {
-        height: 0;
-        opacity: 0;
-    }
-    100% {
-        height: auto;
-        opacity: 1;
-    }
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: auto;
+    opacity: 1;
+  }
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    font-family: "Roboto", Arial, Helvetica, sans-serif;
-    color: #000000;
-}
-
-.wrapper {
-    max-width: 100%;
-    width: 100vw;
-    min-height: 100vh;
-    overflow: hidden;
-    background-color: #F1F1F1;
+  width: 100%;
+  height: 100%;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  color: #000000;
 }
 
 ._orange {
-    background-color: #FFE4C2;
-    color: #FF6D00;
+  background-color: #ffe4c2;
+  color: #ff6d00;
 }
 
 ._green {
-    background-color: #B4FDD1;
-    color: #06B16E;
+  background-color: #b4fdd1;
+  color: #06b16e;
 }
 
 ._purple {
-    background-color: #E9D4FF;
-    color: #9A48F1;
+  background-color: #e9d4ff;
+  color: #9a48f1;
 }
 
 ._gray {
-    background: #94A6BE;
-    color: #FFFFFF;
+  background: #94a6be;
+  color: #ffffff;
 }
