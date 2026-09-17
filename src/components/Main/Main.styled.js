@@ -32,3 +32,8 @@ export const MainContent = styled.div`
     display: block;
   }
 `;
+export const Error = styled.p`
+  text-align: center;
+  font-size: 32px;
+  color: red;
+`

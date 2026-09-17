@@ -41,23 +41,6 @@ export const Form = styled.form`
 	gap: 7px;
 `;
 
-export const FormInput = styled.input`
-	width: 100%;
-	padding: 10px 8px;
-	border: 1px solid rgb(148 166 190 / 40%);
-	border-radius: 8px;
-	outline: none;
-	font: inherit;
-
-	&::placeholder {
-		color: #94a6be;
-	}
-
-	&:focus {
-		border-color: #565eef;
-	}
-`;
-
 export const FormButton = styled.button`
 	width: 100%;
 	min-height: 40px;
@@ -87,3 +70,13 @@ export const FormLink = styled.a`
 	color: rgb(148 166 190 / 70%);
 	text-decoration: underline;
 `;
+
+export const ErrorText = styled.p`
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 150%;
+	text-align: center;
+	color: #F84D4D;
+	margin-top: 7px;
+	margin-bottom: 20px;
+`

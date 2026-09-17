@@ -11,26 +11,19 @@ import RegisterPage from "./pages/Register";
 
 function AppRoutes() {
   const [isAuth, setIsAuth] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
 
   return (
     <Routes>
-      <Route element={<PrivateRoute isAuth={isAuth} />}>
+      {/* <Route element={<PrivateRoute isAuth={isAuth} />}> */}
         <Route
           path="/"
-          element={<MainPage setIsAuth={setIsAuth} loading={loading} />}
+          element={<MainPage setIsAuth={setIsAuth} />}
         >
           <Route path="/card/:id" element={<PopBrowsePage />} />
           <Route path="/exit" element={<PopExitPage />} />
           <Route path="/create" element={<PopNewCardPage />} />
         </Route>
-      </Route>
+      {/* </Route> */}
       <Route path="/login" element={<LoginPage setIsAuth={setIsAuth} />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="*" element={<NotFoundPage />} />
