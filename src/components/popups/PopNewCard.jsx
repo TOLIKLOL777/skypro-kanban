@@ -27,7 +27,7 @@ const PopNewCard = () => {
         <PopNewCardPanel>
           <PopNewCardContent>
             <PopNewCardTitle>Создание задачи</PopNewCardTitle>
-            <PopNewCardClose href="#">&#10006;</PopNewCardClose>
+            <PopNewCardClose><Link to={`/`}>&#10006;</Link></PopNewCardClose>
             <PopNewCardWrap>
               <NewCardForm id="formNewCard" action="#">
                 <FormBlock>

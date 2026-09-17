@@ -90,26 +90,26 @@ const PopBrowse = () => {
             <BrowseActions>
               <ButtonGroup>
                 <BrowseButton>
-                  <a href="#">Редактировать задачу</a>
+                  <a href="">Редактировать задачу</a>
                 </BrowseButton>
                 <BrowseButton>
                   <Link to={`/`}>Закрыть</Link>
                 </BrowseButton>
               </ButtonGroup>
               <BrowsePrimaryButton>
-                <a href="#">Закрыть</a>
+                <Link to={`/`}>Закрыть</Link>
               </BrowsePrimaryButton>
             </BrowseActions>
             <BrowseEditActions>
               <BrowseEditButtonGroup>
                 <BrowseEditButton>
-                  <a href="#">Сохранить</a>
+                  <a href="">Сохранить</a>
                 </BrowseEditButton>
                 <BrowseEditOutlineButton>
-                  <a href="#">Отменить</a>
+                  <a href="">Отменить</a>
                 </BrowseEditOutlineButton>
                 <BrowseEditOutlineButton id="btnDelete">
-                  <a href="#">Удалить задачу</a>
+                  <a href="">Удалить задачу</a>
                 </BrowseEditOutlineButton>
               </BrowseEditButtonGroup>
               <BrowseEditButton>
