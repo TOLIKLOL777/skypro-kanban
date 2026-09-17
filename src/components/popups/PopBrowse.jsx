@@ -1,120 +1,125 @@
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import Calendar from "../Calendar/Calendar";
+import { deleteWord, editWord, getWord } from "../../services/api";
 import {
-  PopBrowse as PopBrowseBlock,
-  PopBrowseContainer,
-  PopBrowseBlock as PopBrowsePanel,
-  PopBrowseContent,
-  PopBrowseTop,
-  PopBrowseTitle,
-  CategoryTheme,
+  BrowseActions,
+  BrowseArea,
+  BrowseButton,
+  BrowseCategory,
+  BrowseEditActions,
+  BrowseEditButton,
+  BrowseEditButtonGroup,
+  BrowseEditOutlineButton,
+  BrowseForm,
+  BrowsePrimaryButton,
   BrowseTopCategory,
+  ButtonGroup,
+  CategoryTheme,
+  NewCardInput,
+  PopBrowse as PopBrowseBlock,
+  PopBrowseBlock as PopBrowsePanel,
+  PopBrowseContainer,
+  PopBrowseContent,
+  PopBrowseTitle,
+  PopBrowseTop,
+  PopBrowseWrap,
   Status,
   StatusLabel,
-  StatusThemes,
   StatusTheme,
-  BrowseForm,
-  BrowseArea,
-  PopBrowseWrap,
-  BrowseCategory,
-  BrowseActions,
-  ButtonGroup,
-  BrowseButton,
-  BrowsePrimaryButton,
-  BrowseEditActions,
-  BrowseEditButtonGroup,
-  BrowseEditButton,
-  BrowseEditOutlineButton,
+  StatusThemes,
 } from "./Popups.styled";
-import { cardlist } from "../../data";
+
+const topics = ["Web Design", "Research", "Copywriting"];
+const statuses = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"];
+const topicColor = (topic) => (topic === "Research" ? "green" : topic === "Copywriting" ? "purple" : "orange");
 
 const PopBrowse = () => {
   const { id } = useParams();
-  const card = useMemo(
-    () => cardlist.find((w) => w.id === id) || { name: "", translation: "" },
-    [id],
-  );
+  const navigate = useNavigate();
+  const { refreshCards } = useOutletContext();
+  const [card, setCard] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+    getWord({ token: user?.token, id })
+      .then((data) => setCard(data.task))
+      .catch((requestError) => setError(requestError.message));
+  }, [id]);
+
+  const updateCard = (field, value) => setCard((current) => ({ ...current, [field]: value }));
+
+  const saveCard = async () => {
+    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+    try {
+      await editWord({ token: user.token, id, word: card });
+      await refreshCards();
+      navigate("/");
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  };
+
+  const removeCard = async () => {
+    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+    try {
+      await deleteWord({ token: user.token, id });
+      await refreshCards();
+      navigate("/");
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  };
+
+  if (!card) {
+    return <PopBrowseBlock><PopBrowseContainer><PopBrowsePanel><PopBrowseContent>{error || "Загрузка..."}</PopBrowseContent></PopBrowsePanel></PopBrowseContainer></PopBrowseBlock>;
+  }
+
   return (
     <PopBrowseBlock id="popBrowse">
-      <PopBrowseContainer card={card}>
+      <PopBrowseContainer>
         <PopBrowsePanel>
           <PopBrowseContent>
             <PopBrowseTop>
-              <PopBrowseTitle>Название задачи</PopBrowseTitle>
-              <BrowseTopCategory $color="orange" $active>
-                <p>Web Design</p>
-              </BrowseTopCategory>
+              {editing ? <NewCardInput value={card.title} onChange={(event) => updateCard("title", event.target.value)} /> : <PopBrowseTitle>{card.title}</PopBrowseTitle>}
+              <BrowseTopCategory $color={topicColor(card.topic)} $active><p>{card.topic}</p></BrowseTopCategory>
             </PopBrowseTop>
             <Status>
               <StatusLabel>Статус</StatusLabel>
               <StatusThemes>
-                <StatusTheme>
-                  <p>Без статуса</p>
-                </StatusTheme>
-                <StatusTheme $color="gray">
-                  <p>Нужно сделать</p>
-                </StatusTheme>
-                <StatusTheme>
-                  <p>В работе</p>
-                </StatusTheme>
-                <StatusTheme>
-                  <p>Тестирование</p>
-                </StatusTheme>
-                <StatusTheme>
-                  <p>Готово</p>
-                </StatusTheme>
+                {statuses.map((status) => <StatusTheme key={status} $color={card.status === status ? "gray" : undefined} onClick={() => editing && updateCard("status", status)}><p>{status}</p></StatusTheme>)}
               </StatusThemes>
             </Status>
             <PopBrowseWrap>
-              <BrowseForm id="formBrowseCard" action="#">
+              <BrowseForm id="formBrowseCard">
                 <div>
                   <StatusLabel>Описание задачи</StatusLabel>
-                  <BrowseArea
-                    name="text"
-                    id="textArea01"
-                    readOnly
-                    placeholder="Введите описание задачи..."
-                  ></BrowseArea>
+                  <BrowseArea readOnly={!editing} value={card.description || ""} onChange={(event) => updateCard("description", event.target.value)} placeholder="Введите описание задачи..." />
                 </div>
               </BrowseForm>
               <Calendar />
             </PopBrowseWrap>
             <BrowseCategory>
               <StatusLabel>Категория</StatusLabel>
-              <CategoryTheme $color="orange" $active>
-                <p>Web Design</p>
-              </CategoryTheme>
+              {topics.map((topic) => <CategoryTheme key={topic} $color={topicColor(topic)} $active={card.topic === topic} onClick={() => editing && updateCard("topic", topic)}><p>{topic}</p></CategoryTheme>)}
             </BrowseCategory>
-            <BrowseActions>
+            {error && <p>{error}</p>}
+            <BrowseActions $editing={editing}>
               <ButtonGroup>
-                <BrowseButton>
-                  <a href="">Редактировать задачу</a>
-                </BrowseButton>
-                <BrowseButton>
-                  <Link to={`/`}>Закрыть</Link>
-                </BrowseButton>
+                <BrowseButton type="button" onClick={() => setEditing(true)}>Редактировать задачу</BrowseButton>
+                <BrowseButton type="button"><Link to="/">Закрыть</Link></BrowseButton>
               </ButtonGroup>
-              <BrowsePrimaryButton>
-                <Link to={`/`}>Закрыть</Link>
-              </BrowsePrimaryButton>
+              <BrowsePrimaryButton type="button"><Link to="/">Закрыть</Link></BrowsePrimaryButton>
             </BrowseActions>
-            <BrowseEditActions>
+            <BrowseEditActions $editing={editing}>
               <BrowseEditButtonGroup>
-                <BrowseEditButton>
-                  <a href="">Сохранить</a>
-                </BrowseEditButton>
-                <BrowseEditOutlineButton>
-                  <a href="">Отменить</a>
-                </BrowseEditOutlineButton>
-                <BrowseEditOutlineButton id="btnDelete">
-                  <a href="">Удалить задачу</a>
-                </BrowseEditOutlineButton>
+                <BrowseEditButton type="button" onClick={saveCard}>Сохранить</BrowseEditButton>
+                <BrowseEditOutlineButton type="button" onClick={() => setEditing(false)}>Отменить</BrowseEditOutlineButton>
+                <BrowseEditOutlineButton type="button" onClick={removeCard}>Удалить задачу</BrowseEditOutlineButton>
               </BrowseEditButtonGroup>
-              <BrowseEditButton>
-                <Link to={`/`}>Закрыть</Link>
-              </BrowseEditButton>
+              <BrowseEditButton type="button"><Link to="/">Закрыть</Link></BrowseEditButton>
             </BrowseEditActions>
           </PopBrowseContent>
         </PopBrowsePanel>

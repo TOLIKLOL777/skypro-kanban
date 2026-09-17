@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
@@ -9,11 +9,17 @@ const MainPage = () => {
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const getCards = useCallback(async () => {
     try {
       setLoading(true);
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
+      if (!userInfo?.token) {
+        navigate("/login");
+        return;
+      }
       const data = await fetchWords({
-        token: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo').user.token : useNavigate('/register'),
+        token: userInfo.token,
       });
       if (data) setCards(data);
     } catch (err) {
@@ -21,16 +27,17 @@ const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [navigate]);
   useEffect(() => {
-    getCards();
+    const timerId = setTimeout(() => getCards(), 0);
+    return () => clearTimeout(timerId);
   }, [getCards]);
 
   return (
     <Wrapper>
       <Header />
       <Main error={error} cards={cards} loading={loading} />
-      <Outlet />
+      <Outlet context={{ refreshCards: getCards }} />
     </Wrapper>
   );
 };

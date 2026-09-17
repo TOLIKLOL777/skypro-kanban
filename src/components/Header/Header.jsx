@@ -13,6 +13,7 @@ import {
 import { Container } from "../Main/Main.styled";
 
 const Header = () => {
+  const user = JSON.parse(localStorage.getItem("userInfo") || "null");
   const [user_open, SetUserOpen] = useState(false);
 
   useEffect(() => {
@@ -39,9 +40,9 @@ const Header = () => {
               <Link to={`/create`}>Создать новую задачу</Link>
             </HeaderButton>
             <HeaderUser onClick={() => SetUserOpen((v) => !v)}>
-              Ivan Ivanov
+              {user?.name || user?.login || "Пользователь"}
             </HeaderUser>
-            <PopUser user_open={user_open} />
+            <PopUser user={user} />
           </HeaderNav>
         </HeaderBlock>
       </Container>

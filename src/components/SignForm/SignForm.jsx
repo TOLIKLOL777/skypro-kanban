@@ -37,7 +37,7 @@ function SignForm({ isAuth, setIsAuth }) {
       const newErrors = { name: "", login: "", password: "" };
       let isValid = true;
 
-      if (isAuth && !formData.name.trim()) {
+      if (!isAuth && !formData.name.trim()) {
          newErrors.name = true;
          setError("Заполните все поля");
          isValid = false;
@@ -82,7 +82,7 @@ function SignForm({ isAuth, setIsAuth }) {
       // чтобы не писать две разных функции, выберем нужный запрос через 
       // тернарный оператор
       const data = !isAuth
-         ? await Register({ login: formData.login, password: formData.password })
+         ? await Register({ name: formData.name, login: formData.login, password: formData.password })
          : await Login(formData);
 
       if (data) {
@@ -112,8 +112,8 @@ function SignForm({ isAuth, setIsAuth }) {
             />}
           <BaseInput 
             error={errors.login}
-            type="email" 
-            name="email" 
+            type="text"
+            name="login"
             id="formemail"
             placeholder="Эл. почта" 
             value={formData.login}
@@ -128,7 +128,7 @@ function SignForm({ isAuth, setIsAuth }) {
             value={formData.password}
             onChange={handleChange}
           />
-          {!errors && <ErrorText>{error}</ErrorText>}
+          {error && <ErrorText>{error}</ErrorText>}
           <FormButton type="submit">
             {isAuth ? "Войти" : "Зарегистрироваться"}
           </FormButton>

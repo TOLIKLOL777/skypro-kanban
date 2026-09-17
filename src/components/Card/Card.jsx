@@ -10,7 +10,7 @@ import {
   CardDate,
 } from "./Card.styled";
 
-const Card = ({ id, theme, title, color, date }) => {
+const Card = ({ _id, topic, title, date }) => {
   const colours = {
     Research: "green",
     "Web Design": "orange",
@@ -20,10 +20,10 @@ const Card = ({ id, theme, title, color, date }) => {
     <CardsItem>
       <CardS>
         <CardGroup>
-          <CardTheme className={`_${colours[theme]}`}>
-            <p className={`_${color}`}>{theme}</p>
+          <CardTheme className={`_${colours[topic]}`}>
+            <p>{topic}</p>
           </CardTheme>
-          <Link to={`/card/${id}`}>
+          <Link to={`/card/${_id}`}>
             <CardButton>
               <div></div>
               <div></div>
@@ -33,7 +33,7 @@ const Card = ({ id, theme, title, color, date }) => {
         </CardGroup>
 
         <CardContent>
-          <Link to={`/card/${id}`}>
+          <Link to={`/card/${_id}`}>
             <CardTitle>{title}</CardTitle>
           </Link>
           <CardDate>
