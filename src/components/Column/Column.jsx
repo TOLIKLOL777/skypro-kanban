@@ -10,7 +10,7 @@ const Column = ({ title, cards }) => {
 
       <Cards>
         {cards.map((card) => (
-          <Card key={card.id} {...card} />
+          <Card key={card._id} {...card} />
         ))}
       </Cards>
     </ColumnS>

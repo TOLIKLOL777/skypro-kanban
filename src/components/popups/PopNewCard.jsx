@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { useState } from "react";
 import Calendar from "../Calendar/Calendar";
+import { postWord } from "../../services/api";
 import {
   PopNewCard as PopNewCardBlock,
   PopNewCardContainer,
@@ -21,6 +23,34 @@ import {
 } from "./Popups.styled";
 
 const PopNewCard = () => {
+  const navigate = useNavigate();
+  const { refreshCards } = useOutletContext();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [topic, setTopic] = useState("Web Design");
+  const [error, setError] = useState("");
+
+  const createCard = async (event) => {
+    event.preventDefault();
+    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+    try {
+      await postWord({
+        token: user.token,
+        word: {
+          title,
+          topic,
+          status: "Без статуса",
+          description,
+          date: new Date().toISOString(),
+        },
+      });
+      await refreshCards();
+      navigate("/");
+    } catch (requestError) {
+      setError(requestError.message);
+    }
+  };
+
   return (
     <PopNewCardBlock id="popNewCard">
       <PopNewCardContainer>
@@ -29,24 +59,28 @@ const PopNewCard = () => {
             <PopNewCardTitle>Создание задачи</PopNewCardTitle>
             <PopNewCardClose><Link to={`/`}>&#10006;</Link></PopNewCardClose>
             <PopNewCardWrap>
-              <NewCardForm id="formNewCard" action="#">
+              <NewCardForm id="formNewCard" onSubmit={createCard}>
                 <FormBlock>
                   <FormLabel htmlFor="formTitle">Название задачи</FormLabel>
                   <NewCardInput
                     type="text"
-                    name="name"
+                    name="title"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
                   />
                 </FormBlock>
                 <FormBlock>
                   <FormLabel htmlFor="textArea">Описание задачи</FormLabel>
                   <NewCardArea
-                    name="text"
+                    name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
-                  ></NewCardArea>
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                  />
                 </FormBlock>
               </NewCardForm>
               <Calendar />
@@ -54,20 +88,19 @@ const PopNewCard = () => {
             <Categories>
               <CategoriesLabel>Категория</CategoriesLabel>
               <CategoriesThemes>
-                <CategoryTheme $color="orange" $active>
+                <CategoryTheme $color="orange" $active={topic === "Web Design"} onClick={() => setTopic("Web Design")}>
                   <p>Web Design</p>
                 </CategoryTheme>
-                <CategoryTheme $color="green">
+                <CategoryTheme $color="green" $active={topic === "Research"} onClick={() => setTopic("Research")}>
                   <p>Research</p>
                 </CategoryTheme>
-                <CategoryTheme $color="purple">
+                <CategoryTheme $color="purple" $active={topic === "Copywriting"} onClick={() => setTopic("Copywriting")}>
                   <p>Copywriting</p>
                 </CategoryTheme>
               </CategoriesThemes>
             </Categories>
-            <CreateButton id="btnCreate">
-              <Link to={`/`}>Создать задачу</Link>
-            </CreateButton>
+            {error && <p>{error}</p>}
+            <CreateButton id="btnCreate" type="submit" form="formNewCard">Создать задачу</CreateButton>
           </PopNewCardContent>
         </PopNewCardPanel>
       </PopNewCardContainer>
