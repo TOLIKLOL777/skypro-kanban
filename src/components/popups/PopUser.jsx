@@ -7,11 +7,11 @@ import {
   PopUserButton,
 } from "./Popups.styled";
 
-const PopUser = () => {
+const PopUser = ({ user }) => {
   return (
     <PopUserBlock id="user-set-target">
-      <PopUserName>Ivan Ivanov</PopUserName>
-      <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+      <PopUserName>{user?.name || "Пользователь"}</PopUserName>
+      <PopUserMail>{user?.login || ""}</PopUserMail>
       <PopUserTheme>
         <p>Темная тема</p>
         <input type="checkbox" name="checkbox" />
