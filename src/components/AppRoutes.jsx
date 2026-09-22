@@ -14,7 +14,7 @@ function AppRoutes() {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<MainPage />}>
           <Route path="/card/:id" element={<PopBrowsePage />} />
-          <Route path="/exit" element={<PopExitPage />} />
+          <Route path="/exit" element={<PopExitPage setIsAuth={setIsAuth} />} />
           <Route path="/create" element={<PopNewCardPage />} />
         </Route>
       </Route>
