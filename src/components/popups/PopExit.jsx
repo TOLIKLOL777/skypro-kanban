@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   PopExit as PopExitBlock,
   PopExitContainer,
@@ -9,8 +9,16 @@ import {
   PopExitYes,
   PopExitNo,
 } from "./Popups.styled";
+import { useAuth } from "../../context/ContextProvider";
 
 const PopExit = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+  const exit = () => {
+    localStorage.removeItem("userInfo");
+    logout();
+    navigate("/login", { replace: true });
+  };
   return (
     <PopExitBlock id="popExit">
       <PopExitContainer>
@@ -18,8 +26,8 @@ const PopExit = () => {
           <PopExitTitle>Выйти из аккаунта?</PopExitTitle>
           <PopExitForm id="formExit" action="#">
             <PopExitFormGroup>
-              <PopExitYes id="exitYes">
-                <Link to={`/register`}>Да, выйти</Link>
+              <PopExitYes id="exitYes" type="button" onClick={exit}>
+                Да, выйти
               </PopExitYes>
               <PopExitNo id="exitNo">
                 <Link to={`/`}>Нет, остаться</Link>

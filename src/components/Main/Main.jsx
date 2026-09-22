@@ -11,8 +11,8 @@ const Main = ({ error, cards, loading }) => {
     "Готово": { title: "Готово", cards: []},
   };
 
-  if (!cards) {
-    for (const card of cards.tasks) {
+  if (cards) {
+    for (const card of cards) {
       if (columns[card.status]) {
         columns[card.status].cards.push(card);
       }

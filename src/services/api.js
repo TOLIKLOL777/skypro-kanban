@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'https://wedev-api.sky.pro/api/kanban/'
+const API_URL = 'https://wedev-api.sky.pro/api/kanban'
 export async function fetchWords({ token }) {
    try {
       const data = await axios.get(API_URL, {
@@ -17,7 +17,7 @@ export async function fetchWords({ token }) {
 
 export async function getWord({ token, id }) {
    try {
-      const data = await axios.get(API_URL + id, {
+      const data = await axios.get(`${API_URL}/${id}`, {
          headers: {
             Authorization: 'Bearer ' + token,
          },
@@ -30,7 +30,7 @@ export async function getWord({ token, id }) {
 
 export async function postWord({ token, word }) {
    try {
-      const data = await axios.post(API_URL, word, {
+      const data = await axios.post(`${API_URL}`, word, {
          headers: {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'text/html',
@@ -44,7 +44,7 @@ export async function postWord({ token, word }) {
 
 export async function editWord({ token, id, word }) {
     try {
-        const data = await axios.patch(API_URL + id, word, {
+        const data = await axios.put(`${API_URL}/${id}`, word, {
             headers: {
                 Authorization: 'Bearer ' + token,
             'Content-Type': 'text/html',
@@ -59,7 +59,7 @@ export async function editWord({ token, id, word }) {
 
 export async function deleteWord({ token, id }) { 
     try {
-        const data = await axios.delete(API_URL + id, { 
+        const data = await axios.delete(`${API_URL}/${id}`, { 
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type":"text",

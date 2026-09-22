@@ -595,7 +595,7 @@ export const BrowseTopCategory = styled(CategoryTheme)`
   }
 `;
 export const BrowseActions = styled.div`
-  display: flex;
+  display: ${({ $editing }) => ($editing ? "none" : "flex")};
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
@@ -653,7 +653,7 @@ export const BrowsePrimaryButton = styled.button`
   ${primaryHover}
 `;
 export const BrowseEditActions = styled(BrowseActions)`
-  display: none;
+  display: ${({ $editing }) => ($editing ? "flex" : "none")};
 `;
 export const BrowseEditButtonGroup = styled(ButtonGroup)``;
 export const BrowseEditButton = styled(BrowsePrimaryButton)``;
