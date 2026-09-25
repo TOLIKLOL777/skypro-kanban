@@ -1,7 +1,7 @@
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Calendar from "../Calendar/Calendar";
-import { postWord } from "../../services/api";
+import { useTasks } from "../../context/ContextProvider";
 import {
   PopNewCard as PopNewCardBlock,
   PopNewCardContainer,
@@ -24,7 +24,7 @@ import {
 
 const PopNewCard = () => {
   const navigate = useNavigate();
-  const { refreshCards } = useOutletContext();
+  const { addTask } = useTasks();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [topic, setTopic] = useState("Web Design");
@@ -32,19 +32,14 @@ const PopNewCard = () => {
 
   const createCard = async (event) => {
     event.preventDefault();
-    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
     try {
-      await postWord({
-        token: user.token,
-        word: {
-          title,
-          topic,
-          status: "Без статуса",
-          description,
-          date: new Date().toISOString(),
-        },
+      await addTask({
+        title,
+        topic,
+        status: "Без статуса",
+        description,
+        date: new Date().toISOString(),
       });
-      await refreshCards();
       navigate("/");
     } catch (requestError) {
       setError(requestError.message);

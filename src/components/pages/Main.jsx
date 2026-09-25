@@ -1,43 +1,27 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Main from "../Main/Main";
 import Header from "../Header/Header";
 import { Wrapper } from "../Main/Main.styled";
-import { fetchWords } from "../../services/api";
+import { useTasks } from "../../context/ContextProvider";
 
 const MainPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [cards, setCards] = useState([]);
-  const [error, setError] = useState("");
+  const { tasks, loading, error, loadTasks } = useTasks();
   const navigate = useNavigate();
-  const getCards = useCallback(async () => {
-    try {
-      setLoading(true);
-      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "null");
-      if (!userInfo?.token) {
-        navigate("/login");
-        return;
-      }
-      const data = await fetchWords({
-        token: userInfo.token,
-      });
-      if (data) setCards(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [navigate]);
+
   useEffect(() => {
-    const timerId = setTimeout(() => getCards(), 0);
-    return () => clearTimeout(timerId);
-  }, [getCards]);
+    if (!localStorage.getItem("userInfo")) {
+      navigate("/login");
+      return;
+    }
+    loadTasks();
+  }, [loadTasks, navigate]);
 
   return (
     <Wrapper>
       <Header />
-      <Main error={error} cards={cards} loading={loading} />
-      <Outlet context={{ refreshCards: getCards }} />
+      <Main error={error} cards={tasks} loading={loading} />
+      <Outlet />
     </Wrapper>
   );
 };

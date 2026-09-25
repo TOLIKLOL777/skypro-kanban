@@ -7,6 +7,7 @@ const BaseInput = ({
    placeholder = "",
    type = "text",
    error = false,
+   value = "",
    onChange,
 
 }) => {
@@ -19,6 +20,7 @@ const BaseInput = ({
          name={name}
          type={type}
          placeholder={placeholder}
+         value={value}
          $error={error}
          onChange={onChange}
       />

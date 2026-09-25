@@ -9,12 +9,14 @@ import {
   PopExitYes,
   PopExitNo,
 } from "./Popups.styled";
+import { useAuth } from "../../context/ContextProvider";
 
-const PopExit = ({ setIsAuth }) => {
+const PopExit = () => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
-  const logout = () => {
+  const exit = () => {
     localStorage.removeItem("userInfo");
-    setIsAuth(false);
+    logout();
     navigate("/login", { replace: true });
   };
   return (
@@ -24,7 +26,7 @@ const PopExit = ({ setIsAuth }) => {
           <PopExitTitle>Выйти из аккаунта?</PopExitTitle>
           <PopExitForm id="formExit" action="#">
             <PopExitFormGroup>
-              <PopExitYes id="exitYes" type="button" onClick={logout}>
+              <PopExitYes id="exitYes" type="button" onClick={exit}>
                 Да, выйти
               </PopExitYes>
               <PopExitNo id="exitNo">

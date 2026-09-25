@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Calendar from "../Calendar/Calendar";
-import { deleteWord, editWord, getWord } from "../../services/api";
+import { useTasks } from "../../context/ContextProvider";
 import {
   BrowseActions,
   BrowseArea,
@@ -37,25 +37,22 @@ const topicColor = (topic) => (topic === "Research" ? "green" : topic === "Copyw
 const PopBrowse = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { refreshCards } = useOutletContext();
+  const { getTask, updateTask, deleteTask } = useTasks();
   const [card, setCard] = useState(null);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
-    getWord({ token: user?.token, id })
-      .then((data) => setCard(data.task))
+    getTask(id)
+      .then((task) => setCard(task))
       .catch((requestError) => setError(requestError.message));
-  }, [id]);
+  }, [getTask, id]);
 
   const updateCard = (field, value) => setCard((current) => ({ ...current, [field]: value }));
 
   const saveCard = async () => {
-    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
     try {
-      await editWord({ token: user.token, id, word: card });
-      await refreshCards();
+      await updateTask(id, card);
       navigate("/");
     } catch (requestError) {
       setError(requestError.message);
@@ -63,10 +60,8 @@ const PopBrowse = () => {
   };
 
   const removeCard = async () => {
-    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
     try {
-      await deleteWord({ token: user.token, id });
-      await refreshCards();
+      await deleteTask(id);
       navigate("/");
     } catch (requestError) {
       setError(requestError.message);
