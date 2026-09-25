@@ -1,16 +1,43 @@
-# React + Vite
+# Skypro Kanban
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Простое приложение для управления задачами на канбан-доске.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- просмотр задач по статусам;
+- создание и редактирование карточек;
+- календарь задач;
+- регистрация и авторизация пользователей.
 
-## React Compiler
+## Установка
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+```
 
-## Expanding the ESLint configuration
+## Запуск
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Запустить проект в режиме разработки:
+
+```bash
+npm i
+npm run dev
+```
+
+После запуска приложение будет доступно по адресу, который покажет Vite в терминале.
+
+## Другие команды
+
+```bash
+npm run build    # собрать проект
+npm run lint     # проверить код
+```
+
+## Технологии
+
+- React
+- Vite
+- React Router
+- Styled Components
+- Axios
+- API Context

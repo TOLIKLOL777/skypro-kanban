@@ -14,7 +14,7 @@ export const CalendarS = styled.div`
     }
 `
 export const CalendarTtl = styled.p`
-    color: #000;
+    color: ${({ theme }) => theme.colors.text};
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -58,6 +58,11 @@ export const NavAction = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: ${({ theme }) => theme.colors.text};
+
+    & path {
+        fill: currentColor;
+    }
 `
 export const CalendarContent = styled.div`
     margin-bottom: 12px;
@@ -71,7 +76,7 @@ export const CalendarDaysNames = styled.div`
     padding: 0 7px;
 `
 export const CalendarDayName = styled.div`
-    color: #94A6BE;
+    color: ${({ theme }) => theme.colors.muted};
     font-size: 10px;
     font-weight: 500;
     line-height: normal;
@@ -82,7 +87,7 @@ export const CalendarDayName = styled.div`
     }
 `
 export const CalendarDayNameWeekend = styled(CalendarDayName)`
-    color: #565EEF;
+    color: ${({ theme }) => theme.colors.primary};
 `
 export const CalendarCells = styled.div`
     width: 182px;
@@ -107,15 +112,17 @@ export const CalendarCell = styled.div`
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
-    color: #94A6BE;
+    color: ${({ theme }) => theme.colors.muted};
     font-size: 10px;
     line-height: 1;
     letter-spacing: -0.2px;
     cursor: pointer;
+    background-color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.muted : 'transparent')};
+    color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.surface : theme.colors.muted)};
 
-    &:hover {
-        color: #94A6BE;
-        background-color: #EAEEF6;
+    &&:hover {
+        color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.surface : theme.colors.muted)};
+        background-color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.muted : theme.colors.page)};
     }
 
     @media screen and (max-width: 660px) {
@@ -128,7 +135,7 @@ export const CalendarCellOtherMonth = styled(CalendarCell)`
     opacity: 0.5;
 
     &:hover {
-        color: #94A6BE;
+        color: ${({ theme }) => theme.colors.muted};
         background-color: transparent;
         cursor: default;
     }
@@ -137,11 +144,11 @@ export const CalendarCellCurrent = styled(CalendarCell)`
     font-weight: 700;
 `
 export const CalendarCellWeekend = styled(CalendarCell)`
-    color: #565EEF;
+    color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.surface : theme.colors.primary)};
 `
 export const CalendarCellOtherMonthWeekend = styled(CalendarCell)`
     opacity: 0.5;
-    color: #565EEF;
+    color: ${({ theme, $isChoice }) => ($isChoice ? theme.colors.surface : theme.colors.primary)};
 `
 export const CalendarPeriod = styled.div`
     padding: 0 7px;
@@ -151,12 +158,12 @@ export const CalendarPeriod = styled.div`
     }
 `
 export const CalendarPeriodP = styled.p`
-    color: #94A6BE;
+    color: ${({ theme }) => theme.colors.muted};
     font-size: 10px;
     line-height: 1;
 
     & span {
-        color: #000;
+        color: ${({ theme }) => theme.colors.text};
     }
 
     @media screen and (max-width: 660px) {

@@ -2,33 +2,34 @@ import styled, { css } from "styled-components";
 
 const categoryColors = {
   orange: css`
-    background-color: #ffe4c2;
-    color: #ff6d00;
+    background-color: ${({ theme }) => theme.colors.categoryOrangeBackground};
+    color: ${({ theme }) => theme.colors.categoryOrange};
   `,
   green: css`
-    background-color: #b4fdd1;
-    color: #06b16e;
+    background-color: ${({ theme }) => theme.colors.categoryGreenBackground};
+    color: ${({ theme }) => theme.colors.categoryGreen};
   `,
   purple: css`
-    background-color: #e9d4ff;
-    color: #9a48f1;
+    background-color: ${({ theme }) => theme.colors.categoryPurpleBackground};
+    color: ${({ theme }) => theme.colors.categoryPurple};
   `,
   gray: css`
-    background: #94a6be;
-    color: #ffffff;
+    background: ${({ theme }) => theme.colors.statusBackground};
+    color: ${({ theme }) => theme.colors.statusText};
   `,
 };
 
 const primaryHover = css`
   &:hover {
-    background-color: #33399b;
+    background-color: ${({ theme }) => theme.colors.primaryHover};
   }
 `;
 
 const outlineHover = css`
   &:hover {
-    background-color: #33399b;
+    background-color: #565EEF;
     color: #ffffff;
+    border: none;
   }
 
   &:hover a {
@@ -66,12 +67,12 @@ export const PopExitContainer = styled.div`
 export const PopExitBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.page};
   max-width: 370px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid ${({ theme }) => theme.colors.border};
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media only screen and (max-width: 375px) {
@@ -149,11 +150,11 @@ export const PopExitYes = styled(PopExitButton)`
 export const PopExitNo = styled(PopExitButton)`
   width: 153px;
   background-color: transparent;
-  border: 0.7px solid #565eef;
-  color: #565eef;
+  border: 0.7px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 
   & a {
-    color: #565eef;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   ${outlineHover}
@@ -166,16 +167,16 @@ export const PopUser = styled.div`
   width: 213px;
   height: 205px;
   border-radius: 10px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #fff;
-  box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
+  border: 0.7px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surface};
+  box-shadow: 0px 10px 39px 0px ${({ theme }) => theme.colors.shadow};
   padding: 34px;
   text-align: center;
   z-index: 2;
 `;
 
 export const PopUserName = styled.p`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -198,7 +199,7 @@ export const PopUserTheme = styled.div`
   margin-bottom: 30px;
 
   & p {
-    color: #000;
+    color: ${({ theme }) => theme.colors.text};
     font-size: 14px;
     line-height: 21px;
     letter-spacing: -0.14px;
@@ -209,7 +210,7 @@ export const PopUserTheme = styled.div`
     width: 24px;
     height: 13px;
     border-radius: 100px;
-    background: #eaeef6;
+    background: ${({ theme }) => theme.colors.board};
     outline: none;
     appearance: none;
   }
@@ -222,7 +223,7 @@ export const PopUserTheme = styled.div`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: #94a6be;
+    background-color: ${({ theme }) => theme.colors.boardAfter};
     transition: 0.5s;
   }
 
@@ -235,12 +236,12 @@ export const PopUserButton = styled.button`
   width: 72px;
   height: 30px;
   background: transparent;
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.primary};
   border-radius: 4px;
-  border: 1px solid #565eef;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
 
   & a {
-    color: #565eef;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   ${outlineHover}
@@ -266,11 +267,11 @@ const PopOverlay = styled.div`
 const PopBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.surface};
   max-width: 630px;
   width: 100%;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid ${({ theme }) => theme.colors.border};
   position: relative;
 
   @media screen and (max-width: 660px) {
@@ -310,21 +311,21 @@ export const PopNewCardContent = styled.div`
   text-align: left;
 `;
 export const PopNewCardTitle = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 20px;
 `;
-export const PopNewCardClose = styled.a`
+export const PopNewCardClose = styled.div`
   position: absolute;
   top: 20px;
   right: 30px;
-  color: #94a6be;
+  color: ${({ theme }) => theme.colors.muted};
   cursor: pointer;
 
   &:hover {
-    color: #000000;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 export const PopNewCardWrap = styled.div`
@@ -351,7 +352,7 @@ export const FormBlock = styled.div`
   flex-direction: column;
 `;
 export const FormLabel = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.14px;
@@ -360,8 +361,9 @@ const FormField = styled.input`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.text};
+  border: 0.7px solid ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -371,7 +373,7 @@ const FormField = styled.input`
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.muted)};
     letter-spacing: -0.14px;
   }
 `;
@@ -382,8 +384,9 @@ export const NewCardArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: transparent;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.text};
+  border: 0.7px solid ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -393,7 +396,7 @@ export const NewCardArea = styled.textarea`
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.muted)};
     letter-spacing: -0.14px;
   }
 
@@ -436,7 +439,7 @@ export const Categories = styled.div`
 `;
 export const CategoriesLabel = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.14px;
@@ -499,7 +502,7 @@ export const PopBrowseTop = styled.div`
   margin-bottom: 18px;
 `;
 export const PopBrowseTitle = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -528,8 +531,9 @@ export const BrowseArea = styled.textarea`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  background: ${({ theme }) => theme.colors.board};
+  color: ${({ theme }) => theme.colors.text};
+  border: 0.7px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -541,7 +545,7 @@ export const BrowseArea = styled.textarea`
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;
-    color: #94a6be;
+    color: ${({ theme }) => theme.colors.muted};
     letter-spacing: -0.14px;
   }
 
@@ -555,7 +559,7 @@ export const Status = styled.div`
 `;
 export const StatusLabel = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.14px;
@@ -628,13 +632,13 @@ export const ButtonGroup = styled.div`
 `;
 export const BrowseButton = styled.button`
   border-radius: 4px;
-  border: 0.7px solid #565eef;
+  border: 0.7px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
   outline: none;
   background: transparent;
-  color: #565eef;
 
   & a {
-    color: #565eef;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   ${outlineHover}
@@ -644,10 +648,10 @@ export const BrowsePrimaryButton = styled.button`
   background: #565eef;
   border: none;
   outline: none;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.primary};
 
   & a {
-    color: #ffffff;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   ${primaryHover}
