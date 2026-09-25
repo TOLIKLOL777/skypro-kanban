@@ -1,5 +1,5 @@
 import { useCallback, useState, useContext } from "react";
-import { TasksContext, AuthContext } from "./ContextAPI";
+import { TasksContext, AuthContext, ThemeContext } from "./ContextAPI";
 import { Login, Register } from "../services/auth";
 import { deleteWord, editWord, fetchWords, getWord, postWord } from "../services/api";
 
@@ -121,6 +121,19 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
+export function ThemeContextProvider({ children }) {
+  const [isDark, setIsDark] = useState(() => Boolean(localStorage.getItem("isDark")));
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme: () => {
+      setIsDark((value) => !value)
+      localStorage.setItem('isDark', isDark)
+    }}}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
@@ -133,6 +146,14 @@ export function useTasks() {
   const context = useContext(TasksContext);
   if (!context) {
     throw new Error('useTasks должен использоваться внутри TasksProvider');
+  }
+  return context;
+}
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme должен использоваться внутри ThemeContextProvider");
   }
   return context;
 }

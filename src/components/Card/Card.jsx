@@ -20,7 +20,7 @@ const Card = ({ _id, topic, title, date }) => {
     <CardsItem>
       <CardS>
         <CardGroup>
-          <CardTheme className={`_${colours[topic]}`}>
+          <CardTheme $color={colours[topic]}>
             <p>{topic}</p>
           </CardTheme>
           <Link to={`/card/${_id}`}>

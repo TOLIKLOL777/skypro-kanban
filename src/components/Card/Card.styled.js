@@ -9,7 +9,7 @@ export const CardsItem = styled.div`
 export const CardS = styled.div`
     width: 220px;
     height: 130px;
-    background-color: #FFFFFF;
+    background-color: ${({ theme }) => theme.colors.surface};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@ export const CardS = styled.div`
     @media screen and (max-width: 1200px) {
         width: 220px;
         height: 130px;
-        background-color: #FFFFFF;
+        background-color: ${({ theme }) => theme.colors.surface};
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -42,6 +42,8 @@ export const CardTheme = styled.div`
     height: 20px;
     padding: 5px 14px;
     border-radius: 18px;
+    background-color: ${({ theme, $color }) => theme.colors[`category${$color ? $color[0].toUpperCase() + $color.slice(1) : "Orange"}Background`]};
+    color: ${({ theme, $color }) => theme.colors[`category${$color ? $color[0].toUpperCase() + $color.slice(1) : "Orange"}`]};
 
     & p {
         font-size: 10px;
@@ -75,7 +77,7 @@ export const CardTitle = styled.h3`
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
-    color: #000000;
+    color: ${({ theme }) => theme.colors.text};
     margin-bottom: 10px;
 `
 export const CardDate = styled.div`

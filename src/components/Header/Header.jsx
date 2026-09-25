@@ -5,16 +5,17 @@ import {
   HeaderS,
   HeaderBlock,
   HeaderLogo,
-  HeaderLogoDark,
   HeaderNav,
   HeaderButton,
   HeaderUser,
 } from "./Header.styled";
 import { Container } from "../Main/Main.styled";
+import { useTheme } from "../../context/ContextProvider";
 
 const Header = () => {
   const user = JSON.parse(localStorage.getItem("userInfo") || "null");
   const [user_open, SetUserOpen] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const PopUser = document.getElementById("user-set-target");
@@ -27,14 +28,9 @@ const Header = () => {
         <HeaderBlock>
           <HeaderLogo>
             <a href="" target="_self">
-              <img src="/logo.svg" alt="logo" />
+              <img src={isDark ? "/logoDark.svg":"/logoLight.svg"} alt="logo" />
             </a>
           </HeaderLogo>
-          <HeaderLogoDark>
-            <a href="" target="_self">
-              <img src="/logo.svg" alt="logo" />
-            </a>
-          </HeaderLogoDark>
           <HeaderNav>
             <HeaderButton id="btnMainNew">
               <Link to={`/create`}>Создать новую задачу</Link>
