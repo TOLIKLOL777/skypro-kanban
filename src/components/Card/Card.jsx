@@ -16,6 +16,10 @@ const Card = ({ _id, topic, title, date }) => {
     "Web Design": "orange",
     Copywriting: "purple",
   };
+  let local_date = new Date(date);
+  let day = local_date.getDay();
+  let month = local_date.getMonth() + 1;
+  let year = local_date.getFullYear();
   return (
     <CardsItem>
       <CardS>
@@ -65,7 +69,7 @@ const Card = ({ _id, topic, title, date }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>{date}</p>
+            <p>{`${day}/${month}/${year}`}</p>
           </CardDate>
         </CardContent>
       </CardS>

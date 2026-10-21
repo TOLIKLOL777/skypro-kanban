@@ -27,7 +27,7 @@ const primaryHover = css`
 
 const outlineHover = css`
   &:hover {
-    background-color: #565EEF;
+    background-color: #565eef;
     color: #ffffff;
     border: none;
   }
@@ -363,7 +363,8 @@ const FormField = styled.input`
   padding: 14px;
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
-  border: 0.7px solid ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
+  border: 0.7px solid
+    ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -386,7 +387,8 @@ export const NewCardArea = styled.textarea`
   padding: 14px;
   background: ${({ theme }) => theme.colors.surface};
   color: ${({ theme }) => theme.colors.text};
-  border: 0.7px solid ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
+  border: 0.7px solid
+    ${({ theme, $error }) => ($error ? "#F84D4D" : theme.colors.border)};
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
@@ -648,10 +650,10 @@ export const BrowsePrimaryButton = styled.button`
   background: #565eef;
   border: none;
   outline: none;
-  color: ${({ theme }) => theme.colors.primary};
+  color: white;
 
   & a {
-    color: ${({ theme }) => theme.colors.primary};
+    color: white;
   }
 
   ${primaryHover}
