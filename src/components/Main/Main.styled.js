@@ -5,13 +5,13 @@ export const Wrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: ${({ theme }) => theme.colors.page};
 `;
 
 export const MainS = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) => theme.colors.page};
 `;
 
 export const Container = styled.div`

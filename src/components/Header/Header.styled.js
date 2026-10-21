@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderS = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.surface};
 `;
 
 export const HeaderBlock = styled.div`
@@ -20,9 +20,9 @@ export const HeaderBlock = styled.div`
 
 export const HeaderLogo = styled.div`
   width: 85px;
-`;
-export const HeaderLogoDark = styled(HeaderLogo)`
-  display: none;
+  & img {
+      color: ${({ theme }) => theme.colors.text};
+  }
 `;
 export const HeaderNav = styled.nav`
   max-width: 290px;
@@ -60,6 +60,7 @@ export const HeaderButton = styled.button`
     margin-right: 0;
   }
 `;
+
 export const HeaderUser = styled.a`
   height: 20px;
   display: flex;
@@ -68,21 +69,21 @@ export const HeaderUser = styled.a`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.primary};
   &::after {
     content: "";
     display: block;
     width: 6px;
     height: 6px;
     border-radius: 1px;
-    border-left: 1.9px solid #565eef;
-    border-bottom: 1.9px solid #565eef;
+    border-left: 1.9px solid ${({ theme }) => theme.colors.primary};
+    border-bottom: 1.9px solid ${({ theme }) => theme.colors.primary};
     transform: rotate(-45deg);
     margin: -6px 0 0 5px;
     padding: 0;
   }
   &:hover {
-    color: #33399b;
+    color: ${({ theme }) => theme.colors.primaryHover};
   }
   &:hover::after {
     border-left-color: #33399b;

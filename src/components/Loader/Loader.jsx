@@ -1,7 +1,7 @@
 import { LoaderS } from "./Loader.styled";
 
 const Loader = () => {
-  return <LoaderS>Данные загружаются...</LoaderS>;
+  return <LoaderS><p>Данные загружаются...</p></LoaderS>;
 };
 
 export default Loader;

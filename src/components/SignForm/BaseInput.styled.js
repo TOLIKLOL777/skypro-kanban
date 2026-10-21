@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledInput = styled.input`
 	width: 100%;
 	padding: 10px 8px;
+	background-color: ${({ theme }) => theme.colors.surface};
 	border: 1px solid ${({ $error }) => ($error ? "#F84D4D" : "rgb(148 166 190 / 40%)")};
 	border-radius: 8px;
 	outline: none;
@@ -20,6 +21,7 @@ export const StyledInput = styled.input`
 export const StyledTextarea = styled.textarea`
 	width: 100%;
 	padding: 10px 8px;
+	background-color: ${({ theme }) => theme.colors.surface};
 	border: 1px solid ${({ $error }) => ($error ? "#F84D4D" : "rgb(148 166 190 / 40%)")};
 	border-radius: 8px;
 	outline: none;

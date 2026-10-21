@@ -7,15 +7,15 @@ export const AuthPage = styled.main`
 	align-items: center;
 	justify-content: center;
 	padding: 24px 16px;
-	background-color: #eaeef6;
+	background-color: ${({ theme }) => theme.colors.page};
 `;
 
 export const FormCard = styled.div`
 	width: 100%;
 	max-width: 368px;
 	padding: 50px 60px;
-	background-color: #ffffff;
-	border: 1px solid #d4dbe5;
+	background-color: ${({ theme }) => theme.colors.surface};
+	border: 1px solid ${({ theme }) => theme.colors.border};
 	border-radius: 10px;
 	box-shadow: 0 4px 67px -12px rgb(0 0 0 / 13%);
 

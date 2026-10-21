@@ -6,15 +6,23 @@ import {
   PopUserTheme,
   PopUserButton,
 } from "./Popups.styled";
+import { useTheme } from "../../context/ContextProvider";
 
 const PopUser = ({ user }) => {
+  const { isDark, toggleTheme } = useTheme();
+
   return (
     <PopUserBlock id="user-set-target">
       <PopUserName>{user?.name || "Пользователь"}</PopUserName>
       <PopUserMail>{user?.login || ""}</PopUserMail>
       <PopUserTheme>
         <p>Темная тема</p>
-        <input type="checkbox" name="checkbox" />
+        <input
+          type="checkbox"
+          name="checkbox"
+          checked={isDark}
+          onChange={toggleTheme}
+        />
       </PopUserTheme>
       <PopUserButton type="button">
         <Link to={`/exit`}>Выйти</Link>

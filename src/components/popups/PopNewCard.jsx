@@ -29,9 +29,36 @@ const PopNewCard = () => {
   const [description, setDescription] = useState("");
   const [topic, setTopic] = useState("Web Design");
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+  });
+
+  const validateForm = () => {
+    const newErrors = { title: "", description: ""};
+    let isValid = true;
+
+    if (!title.trim()) {
+      newErrors.title = true;
+      setError("Заполните все поля");
+      isValid = false;
+    }
+
+    if (!description.trim()) {
+      newErrors.description = true;
+      setError("Заполните все поля");
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const createCard = async (event) => {
     event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     try {
       await addTask({
         title,
@@ -45,6 +72,18 @@ const PopNewCard = () => {
       setError(requestError.message);
     }
   };
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    if (name == 'title'){
+      setTitle(value)
+    }
+    if (name == 'description'){
+      setDescription(value)
+    }
+    setErrors({ ...errors, [name]: false });
+    setError('')
+  }
 
   return (
     <PopNewCardBlock id="popNewCard">
@@ -64,7 +103,8 @@ const PopNewCard = () => {
                     placeholder="Введите название задачи..."
                     autoFocus
                     value={title}
-                    onChange={(event) => setTitle(event.target.value)}
+                    onChange={handlechange}
+                    $error = {errors.title}
                   />
                 </FormBlock>
                 <FormBlock>
@@ -74,7 +114,8 @@ const PopNewCard = () => {
                     id="textArea"
                     placeholder="Введите описание задачи..."
                     value={description}
-                    onChange={(event) => setDescription(event.target.value)}
+                    onChange={handlechange}
+                    $error = {errors.description}
                   />
                 </FormBlock>
               </NewCardForm>
